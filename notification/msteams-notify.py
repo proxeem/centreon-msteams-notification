@@ -81,22 +81,22 @@ serviceNotificationTemplate = """{
 
 # UI settings
 states = {
-	'UNKNOWN':     { 'color': 'CDCDCD', 'icon': 'unknown' },
-	'OK':          { 'color': '87BD23', 'icon': 'ok' },
-	'WARNING':     { 'color': 'FF9913', 'icon': 'warning' },
-	'CRITICAL':    { 'color': 'ED1C24', 'icon': 'critical' },
+    'UNKNOWN':     { 'color': 'CDCDCD', 'icon': 'unknown' },
+    'OK':          { 'color': '87BD23', 'icon': 'ok' },
+    'WARNING':     { 'color': 'FF9913', 'icon': 'warning' },
+    'CRITICAL':    { 'color': 'ED1C24', 'icon': 'critical' },
 
     'UNREACHABLE': { 'color': 'CDCDCD', 'icon': 'unreachable' },	
     'UP':          { 'color': '87BD23', 'icon': 'up' },
-	'DOWN':        { 'color': 'ED1C24', 'icon': 'down' }
+    'DOWN':        { 'color': 'ED1C24', 'icon': 'down' }
 }
 
 
 # Parse command line
 parser = argparse.ArgumentParser(
-	prog='msteams-notify.py',
-	description = 'Microsoft Teams notification script for Centreon',
-	formatter_class = lambda prog: argparse.HelpFormatter(prog, max_help_position = 64))
+    prog='msteams-notify.py',
+    description = 'Microsoft Teams notification script for Centreon',
+    formatter_class = lambda prog: argparse.HelpFormatter(prog, max_help_position = 64))
 
 parser.add_argument('webhookurl', help = 'MS Teams webhook URL')
 parser.add_argument('type', help = 'Notification type')
@@ -112,15 +112,15 @@ args = parser.parse_args()
 # Render template
 notificationTemplate = Template(serviceNotificationTemplate if (args.service != '') else hostNotificationTemplate)
 notificationMessage = notificationTemplate.substitute(
-	color = states[args.state]['color'],
-	icon = states[args.state]['icon'],
-	notificationtype = (args.type).capitalize(),
-	hostname = args.hostname,
-	hostalias = (args.hostalias[:35] + '...') if len(args.hostalias) > 35 else args.hostalias,
-	hostip = args.hostip,
-	state = args.state,
-	service = args.service,
-	output = ((args.output).split(': ', 1)[1]) if ((args.output).find(': ') != -1) else args.output
+    color = states[args.state]['color'],
+    icon = states[args.state]['icon'],
+    notificationtype = (args.type).capitalize(),
+    hostname = args.hostname,
+    hostalias = (args.hostalias[:35] + '...') if len(args.hostalias) > 35 else args.hostalias,
+    hostip = args.hostip,
+    state = args.state,
+    service = args.service,
+    output = ((args.output).split(': ', 1)[1]) if ((args.output).find(': ') != -1) else args.output
 )
 
 
